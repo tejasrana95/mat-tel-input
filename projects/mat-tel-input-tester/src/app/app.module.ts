@@ -3,7 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
-import {NgxMatIntlTelInputModule} from '../../../ngx-mat-intl-tel-input/src/lib/ngx-mat-intl-tel-input.module';
+import {MatTelInputModule} from '../../../mat-tel-input/src/lib/mat-tel-input.module';
 import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
 @NgModule({
@@ -18,7 +18,7 @@ import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/mate
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    NgxMatIntlTelInputModule
+    MatTelInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

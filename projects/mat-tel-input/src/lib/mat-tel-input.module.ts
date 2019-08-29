@@ -21,4 +21,4 @@ import { MatTelInputComponent } from './mat-tel-input.component';
   ],
   exports: [MatTelInputComponent]
 })
-export class NgxMatIntlTelInputModule { }
+export class MatTelInputModule { }
