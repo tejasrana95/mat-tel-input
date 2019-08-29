@@ -16,7 +16,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../../coverage/ngx-mat-intl-tel-input'),
+      dir: require('path').join(__dirname, '../../coverage/mat-tel-input'),
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },

@@ -12,7 +12,7 @@ import {
 
 import { NG_VALIDATORS, NgControl } from '@angular/forms';
 import { CountryCode, Examples } from './data/country-code';
-import { phoneNumberValidator } from './ngx-mat-intl-tel-input.validator';
+import { phoneNumberValidator } from './mat-tel-input.validator';
 import { Country } from './model/country.model';
 import { getExampleNumber, parsePhoneNumberFromString, PhoneNumber } from 'libphonenumber-js';
 import { MatFormFieldControl, ErrorStateMatcher } from '@angular/material';
@@ -22,12 +22,12 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'ngx-mat-intl-tel-input',
-  templateUrl: './ngx-mat-intl-tel-input.component.html',
-  styleUrls: ['./ngx-mat-intl-tel-input.component.css'],
+  selector: 'mat-tel-input',
+  templateUrl: './mat-tel-input.component.html',
+  styleUrls: ['./mat-tel-input.component.css'],
   providers: [
     CountryCode,
-    { provide: MatFormFieldControl, useExisting: NgxMatIntlTelInputComponent },
+    { provide: MatFormFieldControl, useExisting: MatTelInputComponent },
     {
       provide: NG_VALIDATORS,
       useValue: phoneNumberValidator,
@@ -35,7 +35,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
     }
   ]
 })
-export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, MatFormFieldControl<any> {
+export class MatTelInputComponent implements OnInit, OnDestroy, DoCheck, MatFormFieldControl<any> {
   static nextId = 0;
 
   @Input() preferredCountries: Array<string> = [];
@@ -46,7 +46,6 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
   @Input() enableAutoCountrySelect = false;
   @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() enableSearch = false;
-  @Input() formatPrefillNumber = false;
   @Input() showCountryName = true;
   @Input() searchCountryPlaceholder = 'Search...';
   @Input() disableCountryCode = false;
@@ -60,7 +59,7 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
   stateChanges = new Subject<void>();
   focused = false;
   errorState = false;
-  @HostBinding() id = `ngx-mat-intl-tel-input-${NgxMatIntlTelInputComponent.nextId++}`;
+  @HostBinding() id = `mat-tel-input-${MatTelInputComponent.nextId++}`;
   describedBy = '';
   phoneNumber = '';
   allCountries: Array<Country> = [];
@@ -69,6 +68,17 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
   numberInstance: PhoneNumber;
   value;
   searchCriteria: string;
+  formatPrefill = true;
+
+  @Input()
+  set formatPrefillNumber(allow: boolean) {
+
+    if (allow !== undefined) {
+      this.formatPrefill = allow;
+    } else {
+      this.formatPrefill = true;
+    }
+  }
 
   static getPhoneNumberPlaceHolder(countryISOCode: any): string {
     try {
@@ -101,10 +111,10 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
   }
 
   onTouched = () => {
-  };
+  }
 
   propagateChange = (_: any) => {
-  };
+  }
 
   constructor(
     private countryCodeData: CountryCode,
@@ -189,7 +199,7 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
       };
 
       if (this.enablePlaceholder) {
-        country.placeHolder = NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(country.iso2.toUpperCase());
+        country.placeHolder = MatTelInputComponent.getPhoneNumberPlaceHolder(country.iso2.toUpperCase());
       }
 
       this.allCountries.push(country);
@@ -213,7 +223,7 @@ export class NgxMatIntlTelInputComponent implements OnInit, OnDestroy, DoCheck, 
       this.numberInstance = parsePhoneNumberFromString(value);
       if (this.numberInstance) {
         const countryCode = this.numberInstance.country;
-        if (this.formatPrefillNumber) {
+        if (this.formatPrefill) {
           this.phoneNumber = this.numberInstance.formatNational();
         } else {
           this.phoneNumber = this.numberInstance.nationalNumber.toString();

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxMatIntlTelInputComponent } from './ngx-mat-intl-tel-input.component';
+import { NgxMatIntlTelInputComponent } from './mat-tel-input.component';
 
 describe('NgxMatIntlTelInputComponent', () => {
   let component: NgxMatIntlTelInputComponent;

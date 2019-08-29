@@ -1,5 +1,5 @@
 {
-  "name": "ngx-mat-intl-tel-input",
+  "name": "mat-tel-input",
   "version": "2.0.3",
   "peerDependencies": {
     "@angular/common": "~7.3.0",

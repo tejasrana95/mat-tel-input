@@ -4,7 +4,7 @@ import {parsePhoneNumber, PhoneNumber} from 'libphonenumber-js';
 export const phoneNumberValidator = (control: FormControl) => {
   const error = {validatePhoneNumber: true};
   let numberInstance: PhoneNumber;
-  if (control.value && control.value) {
+  if (control.value) {
     try {
       numberInstance = parsePhoneNumber(control.value);
     } catch (e) {
